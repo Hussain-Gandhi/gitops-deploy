@@ -30,7 +30,7 @@ spec:
     spec:
       initContainers:
       - name: scrumwala-init-migrate
-        image: hussaingandhi/scrumwala:3.0
+        image: hussaingandhi/scrumwala:3.0 # {"$imagepolicy": "hussain-flux:scrumwala"}
         ports:
         - containerPort: 8081
         env:
@@ -58,7 +58,7 @@ spec:
         args: ["php artisan migrate --force"]
       containers:
       - name: scrumwala
-        image: hussaingandhi/scrumwala:3.0
+        image: hussaingandhi/scrumwala:3.0 # {"$imagepolicy": "hussain-flux:scrumwala"}
         ports:
         - containerPort: 8081
         env:
