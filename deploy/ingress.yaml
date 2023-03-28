@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: scrumwala-ingress
+spec:
+  ingressClassName: traefik
+  # defaultBackend:
+  #   service:
+  #     name: scrumwala-service
+  #     port:
+  #       number: 8081
+  rules:
+  - host: hello.scrumwala.com
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: scrumwala-service
+            port:
+              number: 8081
+# kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.6.4/deploy/static/provider/cloud/deploy.yaml
