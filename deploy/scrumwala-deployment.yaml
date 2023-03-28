@@ -30,63 +30,63 @@ spec:
     spec:
       initContainers:
       - name: scrumwala-init-migrate
-        image: hussaingandhi/scrumwala:3.0 # {"$imagepolicy": "hussain-flux:scrumwala"}
+        image: docker.io/hussaingandhi/scrumwala:3.0.0 # {"$imagepolicy": "hussain-flux:scrumwala"}
         ports:
         - containerPort: 8081
         env:
-          - name: DB_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: scrumwala-config
-                key: DB_HOST
-          - name: DB_DATABASE
-            valueFrom:
-              configMapKeyRef:
-                name: scrumwala-config
-                key: DB_NAME
-          - name: DB_USERNAME
-            valueFrom:
-              configMapKeyRef:
-                name: scrumwala-config
-                key: DB_USER
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: scrumwala-secret
-                key: DB_PSWD
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: scrumwala-config
+              key: DB_HOST
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: scrumwala-config
+              key: DB_NAME
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: scrumwala-config
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: scrumwala-secret
+              key: DB_PSWD
         command: ["/bin/sh", "-c"]
         args: ["php artisan migrate --force"]
       containers:
       - name: scrumwala
-        image: hussaingandhi/scrumwala:3.0 # {"$imagepolicy": "hussain-flux:scrumwala"}
+        image: docker.io/hussaingandhi/scrumwala:3.0.0 # {"$imagepolicy": "hussain-flux:scrumwala"}
         ports:
         - containerPort: 8081
         env:
-          - name: APP_KEY
-            valueFrom:
-              secretKeyRef:
-                name: scrumwala-secret
-                key: APP_KEY
-          - name: DB_HOST
-            valueFrom:
-              configMapKeyRef:
-                name: scrumwala-config
-                key: DB_HOST
-          - name: DB_DATABASE
-            valueFrom:
-              configMapKeyRef:
-                name: scrumwala-config
-                key: DB_NAME
-          - name: DB_USERNAME
-            valueFrom:
-              configMapKeyRef:
-                name: scrumwala-config
-                key: DB_USER
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: scrumwala-secret
-                key: DB_PSWD
+        - name: APP_KEY
+          valueFrom:
+            secretKeyRef:
+              name: scrumwala-secret
+              key: APP_KEY
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: scrumwala-config
+              key: DB_HOST
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: scrumwala-config
+              key: DB_NAME
+        - name: DB_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: scrumwala-config
+              key: DB_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: scrumwala-secret
+              key: DB_PSWD
         command: ["/bin/sh", "-c"]
         args: ["php artisan serve --host 0.0.0.0 --port 8081"]
         # args: ["php composer.phar update --no-scripts --no-interaction && php composer.phar install --no-scripts --no-interaction && php artisan migrate --force && php artisan serve --host 0.0.0.0 --port 8081"]
